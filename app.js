@@ -69,11 +69,21 @@
 
   const ring = $('#ring');
   const pct = $('#pct');
+  const tube = $('.tube');
+  const rig = $('.rig');
+  const flash = $('.flash');
+  const flatTex = [...document.querySelectorAll('.floor .tex, .ceil .tex')];
+  const wallTex = [...document.querySelectorAll('.wall .tex')];
   const RING = 276.5;
   const smooth = (x) => x * x * (3 - 2 * x);
   const clamp = (x) => Math.min(Math.max(x, 0), 1);
-  const style = loader.style;
+  // phones / weak CPUs get cheaper effects (see .lite in style.css)
+  if (matchMedia('(max-width: 700px), (pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4) {
+    loader.classList.add('lite');
+  }
   let z = 0;
+  let shown = -1;
+  let flashOn = false;
   let last = performance.now();
   const t0 = last;
 
@@ -88,14 +98,19 @@
     const sx = Math.sin(now / 37) * k + Math.sin(now / 91) * k * 0.6;
     const sy = Math.cos(now / 43) * k * 0.8;
 
-    style.setProperty('--zm', z.toFixed(1));
-    style.setProperty('--cz', `${(-200 - 140 * t - 5200 * launch ** 3).toFixed(1)}px`);
-    style.setProperty('--sx', `${sx.toFixed(2)}px`);
-    style.setProperty('--sy', `${sy.toFixed(2)}px`);
-    style.setProperty('--sr', `${(sx * 0.05).toFixed(3)}deg`);
-    style.setProperty('--flash', clamp((launch - 0.3) / 0.55).toFixed(3));
+    // Write transforms straight to the few animated nodes (no CSS-variable inheritance,
+    // so the browser does not restyle the whole loader subtree every frame).
+    const fy = `translate3d(0,${(z - PERIOD).toFixed(1)}px,0)`;
+    const wx = `translate3d(${(-z).toFixed(1)}px,0,0)`;
+    for (const e of flatTex) e.style.transform = fy;
+    for (const e of wallTex) e.style.transform = wx;
+    tube.style.transform = `translate3d(${sx.toFixed(2)}px,${sy.toFixed(2)}px,0) rotate(${(sx * 0.05).toFixed(3)}deg)`;
+    rig.style.transform = `translate3d(0,0,${(-200 - 140 * t - 5200 * launch ** 3).toFixed(1)}px)`;
+    const f = clamp((launch - 0.3) / 0.55);
+    if (f > 0 || flashOn) { flash.style.opacity = f.toFixed(3); flashOn = f > 0; }
     ring.style.strokeDashoffset = (RING * (1 - smooth(t))).toFixed(1);
-    pct.textContent = Math.round(smooth(t) * 100);
+    const p = Math.round(smooth(t) * 100);
+    if (p !== shown) { pct.textContent = p; shown = p; }
 
     if (t < 1) requestAnimationFrame(frame);
     else reveal();
