@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tonxetyz.github.io/afomil-auto-site/sitemap.xml
+Sitemap: https://afomil-auto-bio.netlify.app/sitemap.xml

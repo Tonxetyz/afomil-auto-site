@@ -9,7 +9,7 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-[Live Demo](https://tonxetyz.github.io/afomil-auto-site/) · [Features](#-key-features) · [Getting Started](#-getting-started) · [Project Structure](#-project-structure)
+[Live Demo](https://afomil-auto-bio.netlify.app/) · [Features](#-key-features) · [Getting Started](#-getting-started) · [Project Structure](#-project-structure)
 
 ---
 
