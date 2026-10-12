@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tonxetyz.github.io/afomil-auto-site/sitemap.xml
