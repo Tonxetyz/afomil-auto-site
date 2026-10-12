@@ -159,7 +159,7 @@ a{color:inherit}
 body.loading .stagger{animation-play-state:paused}
 .top{--i:0}.profile{--i:1}
 .links li:nth-child(1){--i:2}.links li:nth-child(2){--i:3}.links li:nth-child(3){--i:4}.links li:nth-child(4){--i:5}
-.cta-wrap{--i:7}.foot{--i:8}
+.cta-wrap{--i:6}.foot{--i:7}
 @keyframes rise{from{opacity:0;translate:0 22px}}
 @keyframes rise-strong{0%{opacity:0;translate:0 40px;scale:.85;filter:blur(6px)}60%{filter:blur(0)}}
 
